@@ -29,6 +29,8 @@ nav ul li a {
 
 main {
     padding: 20px;
+    width: 60%;
+    margin: 0 auto;
 }
 
 section {
@@ -48,6 +50,21 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+
+#scrollButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #960909;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
 
 
 

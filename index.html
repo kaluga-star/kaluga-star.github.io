@@ -20,14 +20,14 @@
 
     <main>
         <section id="routes">
-            <h2>Наш маршрут</h2>
-            <div class="map">
+            <h2 id="target">Наш маршрут</h2>
+            <div class="map" >
             <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A5a2bc6bbc75bff5a7c9f9d589528ab93a2b8093625b43928a8af2e2d7d99acf4&amp;width=100%&amp;height=544&amp;lang=ru_RU&amp;scroll=true;apikey=<5e1fabae-0df9-4de3-9c63-0dc9f657a226>"></script>
            </div>
       
         </section>
 
-        <a href="http://">Старт</a>
+   
 
         <section id="start">
             <h2>Старт</h2>
@@ -79,6 +79,24 @@
             <p>Email: info@kalugawalks.ru</p>
         </section>
     </main>
+
+
+    <button id="scrollButton">Назад к карте</button>
+
+  
+
+    <script>
+        document.getElementById('scrollButton').addEventListener('click', function() {
+            // Прокручиваем к элементу с id 'target'
+            document.getElementById('target').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+
+
+
+
+
+
 
     <footer>
         <p>&copy; 2025 Пешие путешествия по Калуге</p>

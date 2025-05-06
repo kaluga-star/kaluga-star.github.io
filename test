@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кнопка для прокрутки</title>
+    <style>
+        body {
+            height: 2000px; /* Для демонстрации прокрутки */
+        }
+        #target {
+            margin-top: 1500px; /* Место, куда будет прокрутка */
+            padding: 20px;
+            background-color: lightblue;
+            border: 2px solid blue;
+        }
+        #scrollButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="scrollButton">Прокрутить к месту</button>
+
+    <div id="target">Это целевое место для прокрутки!</div>
+
+    <script>
+        document.getElementById('scrollButton').addEventListener('click', function() {
+            // Прокручиваем к элементу с id 'target'
+            document.getElementById('target').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>
