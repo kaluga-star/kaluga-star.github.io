@@ -29,7 +29,6 @@ nav ul li a {
 
 main {
     padding: 20px;
-    width: 60%;
     margin: 0 auto;
 }
 
@@ -72,7 +71,7 @@ footer {
 
 /* Общие стили для блока (размер по умолчанию) */
 .map{
-    width: 640px
+    width: 100%
  
   }
   
