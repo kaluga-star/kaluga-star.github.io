@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './war.css'
-
+import { useNavigate } from 'react-router-dom';
 
 // Данные для маршрута
 const galleryData = [
@@ -118,73 +118,96 @@ const galleryData = [
 
 
 const War = () => {
-    const [showBackToTop, setShowBackToTop] = useState(false);
-    const [isOpen, setIsOpen] = useState(false); // Состояние для модального окна
-    const [currentImage, setCurrentImage] = useState(''); // Текущее изображение
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentImage, setCurrentImage] = useState('');
 
-    const handleScroll = () => {
-        setShowBackToTop(window.scrollY > 300);
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
+  const handleScroll = () => {
+    setShowBackToTop(window.scrollY > 300);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
     };
+  }, []);
 
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+  const openModal = (image) => {
+    setCurrentImage(image);
+    setIsOpen(true);
+  };
 
-    // Функция открытия модального окна
-    const openModal = (image) => {
-        setIsOpen(true);
-        setCurrentImage(image);
-    };
+  const closeModal = () => {
+    setIsOpen(false);
+    setCurrentImage('');
+  };
 
-    // Функция закрытия модального окна
-    const closeModal = () => {
-        setIsOpen(false);
-        setCurrentImage('');
-    };
+  return (
+    <div className="gallery-container">
+      <button onClick={goBack} className="back-button">
+        ← Вернуться назад
+      </button>
 
-    return (
-        <div className="gallery-container">
-            <h1>Калуга военная</h1>
-            {galleryData.map((item, index) => (
-                <div key={index} className="gallery-item">
-                    <h2 id={item.id}>{item.text}</h2>
-                    <p>{item.mytext}</p>
-                    <div className="photo-grid">
-                        {item.photos.map((photo, photoIndex) => (
-                            <img
-                                key={photoIndex}
-                                src={photo}
-                                alt={item.text}
-                                className="gallery-photo"
-                                onClick={() => openModal(photo)} // Обработчик клика
-                            />
-                        ))}
-                    </div>
-                </div>
+      <div className="map">
+        <h5 className="moving-text">
+          Интерактивный веб‑компонент на React, представляющий галерею мемориальных объектов Калуги, связанных с Великой Отечественной войной. Проект сочетает текстовую информацию, фотоматериалы и удобный пользовательский интерфейс для изучения военно‑исторического наследия города.
+        </h5>
+        <iframe
+          className="full-screen-iframe"
+          src="https://yandex.ru/map-widget/v1/?um=constructor%3A74546f01cf98a4061def7adb95610b02f0311b3f547b7750b59407ac8feb1740&amp;source=constructor"
+          frameBorder="0"
+        ></iframe>
+      </div>
+
+      <h1>Калуга военная</h1>
+      {galleryData.map((item, index) => (
+        <div key={index} className="gallery-item">
+          <h2 id={item.id}>{item.text}</h2>
+          <p>{item.mytext}</p>
+          <div className="photo-grid">
+            {item.photos.map((photo, photoIndex) => (
+              <img
+                key={photoIndex}
+                src={photo}
+                alt={item.text}
+                className="gallery-photo"
+                onClick={() => openModal(photo)}
+              />
             ))}
-
-            {/* Модальное окно */}
-            {isOpen && (
-                <div className="modal-overlay" onClick={closeModal}>
-                    <div className="modal-content">
-                        <button className="close-button" onClick={closeModal}>X</button>
-                        <img src={currentImage} alt="Увеличенное изображение" className="modal-image" />
-                    </div>
-                </div>
-            )}
-
-            {/* Кнопка "Наверх" */}
-            <button
-                className={`back-to-top ${showBackToTop ? 'show' : ''}`}
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            >
-                Наверх
-            </button>
+          </div>
         </div>
-    );
+      ))}
+
+      {isOpen && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={closeModal}>
+              X
+            </button>
+            <img
+              src={currentImage}
+              alt="Увеличенное изображение"
+              className="modal-image"
+            />
+          </div>
+        </div>
+      )}
+
+      <button
+        className={`back-to-top ${showBackToTop ? 'show' : ''}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      >
+        Наверх
+      </button>
+    </div>
+  );
 };
 
 export default War;
